@@ -1,0 +1,18 @@
+# Arquivos de estudo usados como apoio, mas fora da entrega publicada
+Exercicios_Dashboard_Excel.*
+
+# Configuracoes locais de assistentes/ferramentas
+.claude/
+
+# Temporarios do Office e Windows
+~$*
+~WRL*.tmp
+*.tmp
+Thumbs.db
+desktop.ini
+
+# Dependencias locais, caso sejam criadas durante manutencao
+node_modules/
+
+# Repositorio local duplicado/clonado dentro da pasta de trabalho
+LUMICRED/
