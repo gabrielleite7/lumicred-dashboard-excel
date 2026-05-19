@@ -1,109 +1,111 @@
-# LUMICRED - Dashboard de Credito Consignado
+# LUMICRED - Dashboard de Crédito Consignado
 
 ![LUMICRED](logo.png)
 
-Projeto de dashboard executivo em Excel para acompanhamento de uma operacao de credito consignado INSS. O arquivo consolida contratos digitados, status da carteira, volume financeiro, produtividade por operador e concentracao por banco em um painel de leitura gerencial.
+Projeto de dashboard em Excel para acompanhar uma operação de crédito consignado INSS. A ideia foi transformar uma base de contratos em uma visão mais clara da produção, conversão, cancelamentos, bancos parceiros e desempenho dos operadores.
+
+Os dados usados são fictícios e fazem parte de um estudo prático de análise de dados no Excel.
 
 ## Objetivo
 
-Criar uma visao unica para a diretoria acompanhar producao, conversao, cancelamentos, mix bancario e desempenho operacional do time comercial.
+Montar um painel que ajude a responder perguntas simples da operação:
 
-O projeto foi desenvolvido como estudo pratico de Excel para analise de dados, com foco em:
-
-- tratamento e modelagem de base operacional;
-- indicadores executivos de credito consignado;
-- tabelas dinamicas e graficos dinamicos;
-- formulas de KPI, ranking e diagnostico;
-- segmentacao visual para acompanhamento do funil.
+- quantos contratos foram digitados;
+- quantos contratos foram averbados;
+- qual foi a taxa de conversão;
+- quanto foi movimentado em volume bruto;
+- quais bancos concentram mais produção;
+- quais operadores mais produziram;
+- onde estão os principais gargalos do funil.
 
 ## Arquivo principal
 
-O dashboard final esta em:
+O dashboard está no arquivo:
 
-[`Dados/LUMICRED - Credito Consignado.xlsx`](Dados/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
+[`Dados/LUMICRED - Crédito Consignado.xlsx`](Dados/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
 
-## Estrutura do workbook
+## Estrutura do arquivo
 
-- `Dashboard`: painel visual com KPIs e graficos da operacao.
-- `Analises`: indicadores, tabelas auxiliares e rankings.
-- `Insights`: leitura executiva dos resultados e plano de acao sugerido.
-- `fContratos`: tabela fato com os contratos tratados.
-- `dCalendario`: dimensao de calendario.
-- `dOperador`: dimensao de operadores.
+- `Dashboard`: painel principal com KPIs e gráficos.
+- `Insights`: resumo dos principais pontos de atenção da operação.
+- `Analises`: cálculos, tabelas auxiliares e rankings.
+- `fContratos`: base tratada dos contratos.
+- `dCalendario`: calendário usado nas análises por período.
+- `dOperador`: lista de operadores.
 
-## Processo de tratamento
+## Tratamento da base
 
-A base foi preparada no Power Query com as seguintes etapas:
+A base foi tratada no Power Query antes da criação do dashboard. As principais etapas foram:
 
-- importacao da planilha original;
-- promocao da primeira linha como cabecalho;
-- remocao de colunas vazias ou sem uso analitico;
-- substituicao de valores `---` por nulos;
-- aplicacao de tipos corretos para datas, numeros e moedas;
-- remocao de registros sem data de lancamento;
-- remocao de duplicidades por CPF, numero de contrato e data;
-- criacao da flag `AVERBADO`;
-- criacao de `Ano_Mes`;
-- simplificacao do tipo de contrato em `Tipo Simples`.
+- importação da planilha original;
+- ajuste dos cabeçalhos;
+- remoção de colunas vazias ou sem uso;
+- substituição de valores `---` por nulo;
+- correção dos tipos de dados, como datas, números e valores financeiros;
+- remoção de linhas sem data de lançamento;
+- remoção de duplicidades;
+- criação da coluna `AVERBADO`;
+- criação do campo `Ano_Mes`;
+- criação do campo `Tipo Simples` para facilitar a análise do tipo de contrato.
 
-## Indicadores acompanhados
+## Indicadores criados
 
-- quantidade de contratos digitados;
-- quantidade de contratos averbados;
-- taxa de conversao;
-- volume bruto;
-- volume bruto averbado;
-- volume liquido;
-- ticket medio;
-- prazo medio;
-- taxa de cancelamento;
-- ranking por operador;
-- volume por banco;
-- distribuicao por status.
+- Contratos digitados
+- Contratos averbados
+- Taxa de conversão
+- Volume bruto digitado
+- Volume bruto averbado
+- Ticket médio
+- Prazo médio
+- Taxa de cancelamento
+- Produção por operador
+- Volume por banco
+- Distribuição por status
 
-## Principais formulas usadas
+## Fórmulas principais
+
+Algumas das fórmulas usadas no projeto:
 
 ```excel
-=COUNTA(fContratos[Nº CONTRATO])
-=SUMIF(fContratos[AVERBADO],1,fContratos[AVERBADO])
-=SUM(fContratos[VLR BRUTO])
-=C6/C4
-=AVERAGE(fContratos[PRAZO])
-=COUNTIF(fContratos!K:K,"CANCELADO")/COUNTA(fContratos!K:K)
-=COUNTIF(fContratos!Y:Y,1)/COUNTA(fContratos!A:A)
-=SUMIF(fContratos!Y:Y,1,fContratos!R:R)
+=CONT.VALORES(fContratos[Nº CONTRATO])
+=CONT.SES(fContratos[AVERBADO];1)
+=SOMA(fContratos[VLR BRUTO])
+=SOMASES(fContratos[VLR BRUTO];fContratos[AVERBADO];1)
+=CONT.SE(fContratos[STATUS];"CANCELADO")/CONT.VALORES(fContratos[STATUS])
+=MÉDIA(fContratos[PRAZO])
+=ÍNDICE(Analises!B21:B27;CORRESP(MÁXIMO(Analises!C21:C27);Analises!C21:C27;0))
+=MAIOR(Analises!C21:C27;1)
+=TEXTO(MÁXIMO(Analises!F21:F28);"R$ #.##0,00")
 ```
 
-Tambem foram usadas formulas de analise executiva na aba `Insights`, incluindo `COUNTIFS`, `SUMIFS`, `INDEX`, `MATCH`, `MAX`, `MIN`, `LARGE` e `TEXT`.
+## Principais aprendizados
 
-## Leitura dos resultados
+Ao montar o dashboard, os pontos que mais chamaram atenção foram:
 
-A analise aponta uma operacao com volume bruto digitado relevante, mas com gargalos claros no funil:
+- a conversão ficou baixa em relação ao total de contratos digitados;
+- o cancelamento ficou alto e precisa ser acompanhado de perto;
+- parte importante do volume ficou concentrada em poucos bancos;
+- alguns operadores concentraram boa parte da produção;
+- contratos parados em assinatura digital podem impactar diretamente a averbação.
 
-- baixa conversao de contratos digitados em contratos averbados;
-- cancelamento elevado em relacao ao total da carteira;
-- concentracao relevante de volume nos principais bancos parceiros;
-- forte concentracao de producao nos operadores de maior volume;
-- oportunidade de acompanhamento dos contratos em assinatura digital e etapas pendentes.
+## Plano de ação sugerido
 
-## Plano de acao sugerido
+- acompanhar de perto os contratos cancelados;
+- entender os motivos de cancelamento;
+- atuar nos contratos parados em assinatura digital;
+- comparar os bancos com maior e menor volume;
+- observar boas práticas dos operadores com melhor desempenho;
+- acompanhar a conversão por período para identificar gargalos.
 
-- investigar causas de cancelamento;
-- acompanhar contratos parados em assinatura digital;
-- diversificar a producao entre bancos parceiros;
-- replicar boas praticas dos operadores com maior produtividade;
-- reforcar campanhas nos periodos de menor producao;
-- avaliar treinamento ou redistribuicao operacional para operadores com baixa producao.
-
-## Tecnologias
+## Ferramentas utilizadas
 
 - Microsoft Excel
 - Power Query
-- Formulas Excel
-- Tabelas Dinamicas
-- Graficos Dinamicos
-- Segmentacao de Dados
+- Fórmulas Excel
+- Tabelas Dinâmicas
+- Gráficos Dinâmicos
+- Segmentação de Dados
 
-## Observacao
+## Sobre o projeto
 
-Este projeto foi estruturado para portfolio e demonstra competencias em tratamento de dados, modelagem analitica, construcao de KPIs e comunicacao executiva em Excel.
+Este projeto foi criado para portfólio, com foco em tratamento de dados, construção de indicadores e apresentação de informações em formato de dashboard executivo no Excel.
