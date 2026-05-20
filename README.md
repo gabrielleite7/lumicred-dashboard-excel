@@ -1,70 +1,64 @@
 # LUMICRED - Dashboard de Crédito Consignado
 
-![LUMICRED](logo.png)
+![Logo LUMICRED](logo.png)
 
-Projeto de dashboard em Excel para acompanhar uma operação de crédito consignado INSS. A ideia foi transformar uma base de contratos em uma visão mais clara da produção, conversão, cancelamentos, bancos parceiros e desempenho dos operadores.
+Projeto de dashboard em Excel para análise de uma operação de crédito consignado INSS. A proposta foi transformar uma base de contratos em uma visão simples para acompanhar produção, conversão, volume financeiro, bancos parceiros e desempenho dos operadores.
 
-Os dados usados são fictícios e fazem parte de um estudo prático de análise de dados no Excel.
+Os dados são fictícios e foram usados apenas para estudo e portfólio.
 
-## Objetivo
+## Dashboard
 
-Montar um painel que ajude a responder perguntas simples da operação:
-
-- quantos contratos foram digitados;
-- quantos contratos foram averbados;
-- qual foi a taxa de conversão;
-- quanto foi movimentado em volume bruto;
-- quais bancos concentram mais produção;
-- quais operadores mais produziram;
-- onde estão os principais gargalos do funil.
+![Dashboard LUMICRED](imagens/Dashboard.png)
 
 ## Arquivo principal
 
-O dashboard está no arquivo:
+[`LUMICRED - Crédito Consignado.xlsx`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
 
-[`Dados/LUMICRED - Crédito Consignado.xlsx`](Dados/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
+## Pontos-chave do projeto
 
-## Estrutura do arquivo
+- Tratamento da base no Power Query.
+- Criação da tabela fato `fContratos`.
+- Criação de tabelas auxiliares para calendário e operadores.
+- Relacionamento entre tabelas para facilitar a análise.
+- Construção de KPIs principais da operação.
+- Ranking de operadores por produção e conversão.
+- Análise de volume bruto por banco.
+- Segmentações por operador, status e banco.
+- Aba `Insights` com leitura dos principais pontos de atenção.
 
-- `Dashboard`: painel principal com KPIs e gráficos.
-- `Insights`: resumo dos principais pontos de atenção da operação.
-- `Analises`: cálculos, tabelas auxiliares e rankings.
-- `fContratos`: base tratada dos contratos.
-- `dCalendario`: calendário usado nas análises por período.
-- `dOperador`: lista de operadores.
+## KPIs acompanhados
 
-## Tratamento da base
+![KPIs do dashboard](imagens/5%20KPIs.png)
 
-A base foi tratada no Power Query antes da criação do dashboard. As principais etapas foram:
+- Quantidade de contratos digitados.
+- Quantidade de contratos averbados.
+- Percentual de conversão.
+- Valor bruto total.
+- Ticket médio.
 
-- importação da planilha original;
-- ajuste dos cabeçalhos;
-- remoção de colunas vazias ou sem uso;
-- substituição de valores `---` por nulo;
-- correção dos tipos de dados, como datas, números e valores financeiros;
-- remoção de linhas sem data de lançamento;
-- remoção de duplicidades;
-- criação da coluna `AVERBADO`;
-- criação do campo `Ano_Mes`;
-- criação do campo `Tipo Simples` para facilitar a análise do tipo de contrato.
+## Modelo e relacionamento
 
-## Indicadores criados
+![Relacionamento de tabelas](imagens/Relacionamento%20de%20tabelas.png)
 
-- Contratos digitados
-- Contratos averbados
-- Taxa de conversão
-- Volume bruto digitado
-- Volume bruto averbado
-- Ticket médio
-- Prazo médio
-- Taxa de cancelamento
-- Produção por operador
-- Volume por banco
-- Distribuição por status
+O modelo foi organizado com a base principal de contratos e tabelas de apoio para análise por data e operador.
 
-## Fórmulas principais
+## Análises visuais
 
-Algumas das fórmulas usadas no projeto:
+![Gráfico de contratos por mês](imagens/gr%C3%A1fico%20coluna.png)
+
+![Valor bruto por banco](imagens/valor%20bruto%20por%20banco.png)
+
+As visualizações ajudam a identificar:
+
+- meses com maior ou menor volume de contratos;
+- bancos com maior participação no volume bruto;
+- operadores com maior produção;
+- concentração de contratos por status;
+- gargalos na conversão.
+
+## Fórmulas usadas
+
+Algumas fórmulas aplicadas no projeto:
 
 ```excel
 =CONT.VALORES(fContratos[Nº CONTRATO])
@@ -74,28 +68,15 @@ Algumas das fórmulas usadas no projeto:
 =CONT.SE(fContratos[STATUS];"CANCELADO")/CONT.VALORES(fContratos[STATUS])
 =MÉDIA(fContratos[PRAZO])
 =ÍNDICE(Analises!B21:B27;CORRESP(MÁXIMO(Analises!C21:C27);Analises!C21:C27;0))
-=MAIOR(Analises!C21:C27;1)
-=TEXTO(MÁXIMO(Analises!F21:F28);"R$ #.##0,00")
 ```
 
 ## Principais aprendizados
 
-Ao montar o dashboard, os pontos que mais chamaram atenção foram:
-
-- a conversão ficou baixa em relação ao total de contratos digitados;
-- o cancelamento ficou alto e precisa ser acompanhado de perto;
-- parte importante do volume ficou concentrada em poucos bancos;
-- alguns operadores concentraram boa parte da produção;
-- contratos parados em assinatura digital podem impactar diretamente a averbação.
-
-## Plano de ação sugerido
-
-- acompanhar de perto os contratos cancelados;
-- entender os motivos de cancelamento;
-- atuar nos contratos parados em assinatura digital;
-- comparar os bancos com maior e menor volume;
-- observar boas práticas dos operadores com melhor desempenho;
-- acompanhar a conversão por período para identificar gargalos.
+- O dashboard facilitou a leitura da operação em poucos indicadores.
+- A conversão foi um dos pontos mais importantes da análise.
+- O cancelamento apareceu como ponto de atenção.
+- A produção ficou concentrada em alguns operadores.
+- Alguns bancos concentraram grande parte do volume bruto.
 
 ## Ferramentas utilizadas
 
@@ -105,7 +86,3 @@ Ao montar o dashboard, os pontos que mais chamaram atenção foram:
 - Tabelas Dinâmicas
 - Gráficos Dinâmicos
 - Segmentação de Dados
-
-## Sobre o projeto
-
-Este projeto foi criado para portfólio, com foco em tratamento de dados, construção de indicadores e apresentação de informações em formato de dashboard executivo no Excel.
