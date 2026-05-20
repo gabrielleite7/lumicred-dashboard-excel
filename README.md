@@ -42,11 +42,6 @@ Os dados são fictícios e foram usados apenas para estudo e portfólio.
 
 O modelo foi organizado com a base principal de contratos e tabelas de apoio para análise por data e operador.
 
-## Análises visuais
-
-![Gráfico de contratos por mês](imagens/gr%C3%A1fico%20coluna.png)
-
-![Valor bruto por banco](imagens/valor%20bruto%20por%20banco.png)
 
 As visualizações ajudam a identificar:
 
