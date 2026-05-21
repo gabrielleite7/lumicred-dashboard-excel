@@ -16,7 +16,8 @@ Os dados são fictícios e foram usados apenas para estudo e portfólio.
 
 ## Arquivo principal
 
-[`LUMICRED - Crédito Consignado.xlsx`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
+- [`LUMICRED - Crédito Consignado.xlsx`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
+- [`LUMICRED - Crédito Consignado.xlsm`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsm) - versão com macro VBA.
 
 ## Acesso no Google Sheets
 
@@ -52,6 +53,11 @@ Os dados são fictícios e foram usados apenas para estudo e portfólio.
 
 O modelo foi organizado com a base principal de contratos e tabelas de apoio para análise por data e operador.
 
+## Leituras do dashboard
+
+![Gráfico de contratos por mês](imagens/gr%C3%A1fico%20coluna.png)
+
+![Valor bruto por banco](imagens/valor%20bruto%20por%20banco.png)
 
 As visualizações ajudam a identificar:
 
