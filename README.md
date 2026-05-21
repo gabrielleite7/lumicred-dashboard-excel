@@ -19,11 +19,7 @@ Os dados são fictícios e foram usados apenas para estudo e portfólio.
 - [`LUMICRED - Crédito Consignado.xlsx`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsx)
 - [`LUMICRED - Crédito Consignado.xlsm`](LUMICRED%20%20ANALYTICS/LUMICRED%20-%20Cr%C3%A9dito%20Consignado.xlsm) - versão com macro VBA.
 
-## Acesso no Google Sheets
-
-[Acessar no Google Sheets](COLE_AQUI_O_LINK_DO_GOOGLE_SHEETS)
-
-> O link do Google Sheets também fica parametrizado no VBA pela variável `linkGSheets`. Após publicar a planilha no Google Sheets, basta substituir `COLE_AQUI_O_LINK_DO_GOOGLE_SHEETS` pela URL real.
+Para utilizar o projeto, basta baixar o arquivo Excel e abrir no Microsoft Excel. A versão `.xlsm` contém a macro VBA usada para o envio automático do relatório por e-mail.
 
 ## Pontos-chave do projeto
 
@@ -37,39 +33,15 @@ Os dados são fictícios e foram usados apenas para estudo e portfólio.
 - Segmentações por operador, status e banco.
 - Aba `Insights` com leitura dos principais pontos de atenção.
 
-## KPIs acompanhados
-
-![KPIs do dashboard](imagens/5%20KPIs.png)
-
-- Quantidade de contratos digitados.
-- Quantidade de contratos averbados.
-- Percentual de conversão.
-- Valor bruto total.
-- Ticket médio.
-
 ## Modelo e relacionamento
 
 ![Relacionamento de tabelas](imagens/Relacionamento%20de%20tabelas.png)
 
 O modelo foi organizado com a base principal de contratos e tabelas de apoio para análise por data e operador.
 
-## Leituras do dashboard
-
-![Gráfico de contratos por mês](imagens/gr%C3%A1fico%20coluna.png)
-
-![Valor bruto por banco](imagens/valor%20bruto%20por%20banco.png)
-
-As visualizações ajudam a identificar:
-
-- meses com maior ou menor volume de contratos;
-- bancos com maior participação no volume bruto;
-- operadores com maior produção;
-- concentração de contratos por status;
-- gargalos na conversão.
-
 ## Automação com VBA
 
-Além do dashboard, o projeto também conta com uma macro em VBA para gerar e enviar automaticamente um relatório por e-mail. A automação captura a área principal do dashboard como imagem, monta um corpo de e-mail em HTML com os indicadores e adiciona um botão para acesso ao Google Sheets.
+Além do dashboard, o projeto também conta com uma macro em VBA para gerar e enviar automaticamente um relatório por e-mail. A automação captura a área principal do dashboard como imagem e monta um corpo de e-mail em HTML com os indicadores.
 
 A utilização do VBA foi desenvolvida com apoio de engenharia de prompt e correções minuciosas até o funcionamento final da ferramenta. Os ajustes envolveram principalmente a exportação do dashboard como imagem, a montagem do HTML, o vínculo da imagem no corpo do e-mail via CID e o envio automático pelo Outlook.
 
@@ -94,15 +66,12 @@ Sub EnviarRelatorioGestor()
     Dim imgPath As String
     Dim sInsights As String
     Dim sHTML As String
-    Dim linkGSheets As String
     Dim rng As Range
 
     Const DESTINATARIO As String = "gabrielsleite7@gmail.com"
     Const ASSUNTO As String = "Relatório LUMICRED — Crédito Consignado"
 
     On Error GoTo TrataErro
-
-    linkGSheets = "COLE_AQUI_O_LINK_DO_GOOGLE_SHEETS"
 
     Set wsDB = ThisWorkbook.Sheets("Dashboard")
     Set wsInsights = ThisWorkbook.Sheets("Insights")
@@ -140,11 +109,6 @@ Sub EnviarRelatorioGestor()
             "<div style='padding:12px 32px 24px;'>" & _
             "<h2 style='color:#1F3864;font-size:15px;margin-bottom:14px;border-bottom:2px solid #e0e7f3;padding-bottom:8px;'>Insights e Pontos de Atenção</h2>" & _
             sInsights & _
-            "</div>" & _
-            "<div style='background:#eef3fb;padding:18px 32px;border-top:1px solid #dde3f0;'>" & _
-            "<h2 style='color:#1F3864;font-size:14px;margin:0 0 10px;'>Acesse o Dashboard Interativo</h2>" & _
-            "<p style='font-size:12px;color:#555;margin:0 0 10px;'>Clique no link abaixo para explorar os dados com filtros.</p>" & _
-            "<a href='" & linkGSheets & "' style='display:inline-block;background:#1F3864;color:#fff;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:bold;'>Abrir no Google Sheets</a>" & _
             "</div>" & _
             "<div style='background:#f4f6fb;padding:14px 32px;text-align:center;border-top:1px solid #dde3f0;'>" & _
             "<p style='font-size:11px;color:#999;margin:0;'>Relatório gerado automaticamente · " & Format(Now, "dd/mm/yyyy HH:nn") & "</p>" & _
